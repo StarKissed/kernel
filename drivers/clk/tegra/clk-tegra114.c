@@ -2223,6 +2223,9 @@ static struct tegra_clk_init_table init_table[] __initdata = {
 	{i2s4, pll_a_out0, 11289600, 0},
 	{dfll_soc, pll_p, 51000000, 1},
 	{dfll_ref, pll_p, 51000000, 1},
+	{disp1, clk_max, 0, 1},
+	{dsia, clk_max, 0, 1},
+	{blink, clk_max, 0, 1},
 	{clk_max, clk_max, 0, 0}, /* This MUST be the last entry. */
 };
 
