@@ -916,6 +916,7 @@
 						regulator-name = "avdd_usb,vddio_hv,pwrdet_hv";
 						regulator-min-microvolt = <3300000>;
 						regulator-max-microvolt = <3300000>;
+						regulator-always-on;
 					};
 
 					palmas_regen1: regen1 {
@@ -944,6 +945,29 @@
 
 	pmc {
 		nvidia,invert-interrupt;
+	};
+
+	usb@7d000000 {
+		status = "okay";
+	};
+
+	usb-phy@7d000000 {
+		status = "okay";
+		nvidia,xcvr-setup = <7>;
+		nvidia,xcvr-lsfslew = <2>;
+		nvidia,xcvr-lsrslew = <2>;
+	};
+
+	// SHIELD Controller
+	usb@7d008000 {
+		status = "okay";
+	};
+
+	usb-phy@7d008000 {
+		status = "okay";
+		nvidia,xcvr-setup = <7>;
+		nvidia,xcvr-lsfslew = <2>;
+		nvidia,xcvr-lsrslew = <2>;
 	};
 
 	/* Wifi */
