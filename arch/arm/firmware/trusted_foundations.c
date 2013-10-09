@@ -39,15 +39,26 @@ static void __naked tf_generic_smc(u32 type, u32 arg1, u32 arg2)
 		: "memory");
 }
 
+static unsigned long baddr;
+
 static int tf_set_cpu_boot_addr(int cpu, unsigned long boot_addr)
 {
+	baddr = boot_addr;
 	tf_generic_smc(TF_SET_CPU_BOOT_ADDR_SMC, boot_addr, 0);
+
+	return 0;
+}
+
+static int tf_do_idle(void)
+{
+	tf_generic_smc(0xFFFFFFFC, 0xFFFFFFE7, baddr);
 
 	return 0;
 }
 
 static const struct firmware_ops trusted_foundations_ops = {
 	.set_cpu_boot_addr = tf_set_cpu_boot_addr,
+	.do_idle = tf_do_idle,
 };
 
 void register_trusted_foundations(struct trusted_foundations_platform_data *pd)

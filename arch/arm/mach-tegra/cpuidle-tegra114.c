@@ -19,6 +19,7 @@
 #include <linux/cpuidle.h>
 #include <linux/cpu_pm.h>
 #include <linux/clockchips.h>
+#include <asm/firmware.h>
 
 #include <asm/cpuidle.h>
 #include <asm/suspend.h>
@@ -44,6 +45,9 @@ static int tegra114_idle_power_down(struct cpuidle_device *dev,
 	cpu_pm_enter();
 
 	clockevents_notify(CLOCK_EVT_NOTIFY_BROADCAST_ENTER, &dev->cpu);
+
+	if (dev->cpu == 0)
+		call_firmware_op(do_idle);
 
 	cpu_suspend(0, tegra30_sleep_cpu_secondary_finish);
 
