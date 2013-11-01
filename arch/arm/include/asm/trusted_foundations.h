@@ -50,7 +50,8 @@ static inline void register_trusted_foundations(
 	 * If we try to register TF, this means the system needs it to continue.
 	 * Its absence if thus a fatal error.
 	 */
-	panic("No support for Trusted Foundations, stopping...\n");
+	if (IS_ENABLED(CONFIG_SMP) || IS_ENABLED(CONFIG_SUSPEND))
+		panic("No support for Trusted Foundations, stopping...\n");
 }
 
 static inline void of_register_trusted_foundations(void)
